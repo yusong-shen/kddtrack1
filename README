@@ -1,0 +1,57 @@
+This project is created for training SVDFeature for KDDCup track1
+
+--- Contact ---
+Tianqi Chen: tqchen@apex.sjtu.edu.cn
+
+--- Authors and Publication ---
+The models used in this experiment is a part of solution by Inner-Peace Team( http://apex.sjtu.edu.cn/apex_wiki/kddcup )
+    
+--- Links ---
+SVDFeature  : http://apex.sjtu.edu.cn/apex_wiki/svdfeature
+Project Page: http://apex.sjtu.edu.cn/apex_wiki/kddtrack1
+
+--- Required Files ---
+Put all the required files in current folder( same folder as README )
+(1) KDDCup track1 files: http://kddcup.yahoo.com/datasets.php, 
+    * track1test.txt 
+    * trainIdx1.txt
+    * validationIdx1.txt
+    * trackData1.txt
+    * albumData1.txt
+--- System Requirements ---
+* linux, g++, makefile, python (may work in other posix system)
+* SVDFeature Toolkit
+* 50GB hard-disk(approximate estimation, maybe a bit over estimate)
+* 2GB memory( or more if we need more latent factors )
+
+--- Major Scripts and Folders ---
+* prepare_experiment.sh : prepare the experiment enviroment
+* Makefile : specifies the feature generation rules
+* cpp   : c++ codes for feature generation
+* python: python codes for feature generation
+* run   : experiment scripts for other settings
+
+--- Getting Started ---
+(1) Download SVDFeature, get the required files in current folder 
+(2) set the path to SVDFeature in 3rd line of prepare_experiment.sh(very important)
+    i.e:  SVDFEATURE=/path/to/svd-feature
+(3) run prepare_experiment.sh
+(4) execute run.sh in "run" folder for different experiment settings
+
+--- Experiment Explanation ---
+(1) We use binary "user grouped format" as input for SVDFeature(details in manual)
+(2) We generate different kinds of features seperately in the folder "features"
+(3) "utils/kddcup_combine_ugroup" combines different kinds of feature files together into a binary file format accepted by SVDFeature
+     This program can be used to generate different compositions of features available in folder "features"
+(4) All the feature generation rules are written in Makefile, please refer to it for generation details
+(5) This experiment is created for demo purpose, the parameters are not fine tuned, we include the most effective components we used during competition
+
+--- Scripts ---
+See the scripts in folder "run", these are scripts for other feature settings
+* 1svdpp       : SVD++ model
+* 2svdpp.itime : SVD++ with item time bias
+* 3svdpp.iutime: SVD++ with item time bias, user day bias
+* 4svdpp.iutime.put: SVD++ with item time bias, user day bias, user temporal factor
+* 5svdpp.iutime.put.tnn: SVD++ with item time bias, user day bias, user temporal factor, taxonomy parent neighborhood
+* 6svdpph.iutime.put.tnn: SVD++ with item time bias, user day bias, user temporal factor, taxonomy parent neighborhood, taxonomy-aware factorization
+* 7svdpph.iutime.put.tnn.us: SVD++ with item time bias, user day bias, user temporal factor, taxonomy parent neighborhood, taxonomy-aware factorization, user session bias
